@@ -5,20 +5,13 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { MessageType } from "./utils/type";
+export { MessageType } from "./utils/type";
 export namespace Components {
     interface MyComponent {
-        /**
-          * The first name
-         */
-        "first": string;
-        /**
-          * The last name
-         */
-        "last": string;
-        /**
-          * The middle name
-         */
-        "middle": string;
+    }
+    interface MyComponent2 {
+        "message": MessageType;
     }
 }
 declare global {
@@ -28,27 +21,26 @@ declare global {
         prototype: HTMLMyComponentElement;
         new (): HTMLMyComponentElement;
     };
+    interface HTMLMyComponent2Element extends Components.MyComponent2, HTMLStencilElement {
+    }
+    var HTMLMyComponent2Element: {
+        prototype: HTMLMyComponent2Element;
+        new (): HTMLMyComponent2Element;
+    };
     interface HTMLElementTagNameMap {
         "my-component": HTMLMyComponentElement;
+        "my-component-2": HTMLMyComponent2Element;
     }
 }
 declare namespace LocalJSX {
     interface MyComponent {
-        /**
-          * The first name
-         */
-        "first"?: string;
-        /**
-          * The last name
-         */
-        "last"?: string;
-        /**
-          * The middle name
-         */
-        "middle"?: string;
+    }
+    interface MyComponent2 {
+        "message"?: MessageType;
     }
     interface IntrinsicElements {
         "my-component": MyComponent;
+        "my-component-2": MyComponent2;
     }
 }
 export { LocalJSX as JSX };
@@ -56,6 +48,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "my-component-2": LocalJSX.MyComponent2 & JSXBase.HTMLAttributes<HTMLMyComponent2Element>;
         }
     }
 }
